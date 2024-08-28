@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>宿管注册</title>
+  <script  type="text/javascript" src="Jquery.js"></script>
+</head>
+<body>
+<h1 style="text-align: center">员工部门操作台</h1>
+<div style="text-align: center">
+  <form id="a2" >
+    用户名<input type="text" name="username"><br>
+    密码<input type="password" name="password"><br>
+<!--    联系方式<input type="password" name="phone"><br>-->
+<!--    管理楼层<input type="text" name="area"><br>-->
+    <button id="abd">登录</button>
+    <a id="aaa" href="HomePage.html"></a>
+  </form>
+</div>
+<!--http://localhost:8080/depts-->
+<script >
+  $(function () {
+    $("#abd").click(function () {
+      let serialize = $("#a2").serialize();
+      $.ajax({
+        url: 'http://localhost:8080/login',
+        data: serialize,
+        type: "POST",
+        success: function (data) {
+         if (data.code='1')
+         {
+             alert("欢迎光临")
+           let link = document.getElementById("aaa");
+           if (link)
+            link.click();
+         }
+         else
+         {
+           alert(data.msg)
+         }
+        },
+        dataType: "JSON"
+      })
+    })
+  })
+</script>
+</body>
+</html>

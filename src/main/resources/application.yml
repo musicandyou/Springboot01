@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: springboot01
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hxc
+    username: root
+    password: 1234
+
+  servlet:
+    multipart:
+      #单个文件上传最大内存
+      max-file-size: 10MB
+      #一次请求最大的文件上传内存(一次请求可以上传多个文件)
+      max-request-size: 100MB
+
+mybatis:
+  configuration:
+    #lombok日志输出,类自动配置
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #驼峰命名开关 a_colum ----> aColum
+    map-underscore-to-camel-case: true
+
+
+#   开启事务管理日志
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
+
+
+
+my:
+  Hobby:
+    - java
+    - c
+    - python
+
+#驼峰命名开关 a_colum ----> aColum
+##?????? ??? a_colum ----> aColum
+#  mybatis.configuration.map-underscore-to-camel-case=true
+#
+#  #???????????
+#  spring.servlet.multipart.max-file-size=10MB
+#  #??????????????(?????????????)
+#  spring.servlet.multipart.max-request-size=100MB
+server:
+  port: 8848
+
+#   开启debug模式
+#debug: true

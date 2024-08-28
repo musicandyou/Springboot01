@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>部门</title>
+    <script  type="text/javascript" src="Jquery.js"></script>
+</head>
+<body>
+<button id="hxc">部门全部查询</button>
+<table id="data-table">
+    <thead>
+    <tr>
+        <th>部门id</th>
+        <th>部门名字</th>
+        <th>部门创建时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<br><br>
+<h3>根据id删除部门</h3>
+<form id="a2">
+    请输入要删除部门的id<input type="text" name="id"><br>
+    <button id="hwc">删除此部门</button>
+</form> <br>
+
+<h3>增加部门</h3>
+<form id="a3">
+    请输入要增加部门的名字<input type="text" name="name"><br>
+    <button id="hwk">添加部门</button>
+
+    <br>
+    <div><a href="HomePage.html">返回</a></div>
+</form>
+<script >
+    $(function () {
+        //查询所有部门信息
+        $("#hxc").click(function () {
+            $.ajax({
+                url: 'http://localhost:8080/emps',
+                data: '',
+                type: "GET",
+                success: function (data) {
+                    const tableBody = $('#data-table tbody'); // 获取表格的tbody元素
+                    $.each(data.data, function(index, item) { // 遍历响应数据中的每个记录
+                        const row = '<tr>' +
+                            '<td>' + item.id + '</td>' +
+                            '<td>' + item.name + '</td>'+
+                            '<td>' + item.createTime + '</td>'
+                            '</tr>'; // 创建表格行
+                        tableBody.append(row); // 将行添加到表格的tbody元素中
+                    });
+                },
+                dataType: "JSON"
+            })
+        })
+//根据id删除部门
+        $("#hwc").click(function () {
+            let serialize = $("#a2").serialize();
+            const id = $('input[name="id"]').val();
+            alert(id)
+            $.ajax({
+                url: 'http://localhost:8080/dele/'+id,
+                type: "DELETE",
+                success: function (data) {
+                    if (data.msg === 'success') {
+                        alert("删除成功")
+                    } else {
+                        alert(data.msg)
+                    }
+                },
+                dataType: "JSON"
+            })
+        })
+
+        //部门增加
+        $("#hwk").click(function () {
+            let serialize = $("#a3").serialize();
+            $.ajax({
+                url: 'http://localhost:8080/add_dept',
+                data: serialize,
+                type: "POST",
+                success: function (data) {
+                    if (data.msg === 'success') {
+                        alert("增加部门成功")
+                    } else {
+                        alert(data.msg)
+                    }
+                },
+                dataType: "JSON"
+            })
+        })
+    })
+</script>
+</body>
+</html>

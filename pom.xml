@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.springboot</groupId>
+    <artifactId>Springboot01</artifactId>
+    <version>0.0.1</version>
+    <name>Springboot01</name>
+    <description>Springboot01</description>
+    <properties>
+        <java.version>17</java.version>
+        <skipTests>true</skipTests>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+<!--        分页查询插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+<!-- 配置属性注入的依赖 @confihuration 注解-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+<!--        jwt令牌-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
+<!--        JDK17,导依赖jaxb-api，javax.xml.bind，2.3.1  jdk17 的使用jjwt依赖使用JWt令牌
+             需要导入这个依赖  不然报java.lang.NoClassDefFoundError: javax/xml/bind/DatatypeConverter
+              错误
+                    -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+<!--        Aop-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.1.3</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.example</groupId>-->
+<!--            <artifactId>Hxc</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
+
+    </dependencies>
+<!-- 打包插件-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

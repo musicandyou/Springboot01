@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.springboot01.Dao.Emp">
+
+    <insert id="saveemps">
+        insert into emp(username, password, name, gender, image, job, entry_date, dept_id, create_time, update_time)
+        values (#{username}, #{password}, #{name}, #{gender}, #{image}, #{job}, #{entryDate}, #{deptId}, #{createTime}, #{updateTime});
+
+    </insert>
+
+<!--    //根据id修改emp员工数据-->
+    <update id="Updatabyid">
+        update emp
+        <set>
+            <if test="username !=null and username !='' ">
+                username=#{username},
+            </if>
+            <if test="password !=null and password !='' ">
+                password=#{password},
+            </if>
+            <if test="name !=null and name!='' ">
+               name=#{name},
+            </if>
+            <if test="gender !=null ">
+               gender=#{gender},
+            </if>
+            <if test="image !=null ">
+             image=#{image},
+            </if>
+            <if test="job !=null ">
+             job=#{job},
+            </if>
+            <if test="entryDate !=null ">
+            entry_date=#{entryDate},
+            </if>
+            <if test="deptId !=null ">
+           dept_id=#{deptId},
+            </if>
+            <if test="entryDate !=null ">
+               entry_date=#{entryDate},
+             </if>
+
+             <if test =" updateTime !=null" >
+                update_date=#{updateTime}
+            </if>
+        </set>
+        where id = #{id};
+    </update>
+
+
+    <!--    根据Id批量删除员工-->
+    <delete id="Deleempbyids">
+        delete
+        from emp
+       where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+
+    </delete>
+
+
+    <select id="queryemp" resultType="com.springboot.springboot01.projo.Emp">
+        select * from emp
+        <where>
+            <if test="name!=null">
+                name like concat('%',#{name},'%')
+            </if>
+         <if test="gender!=null">
+      and gender=#{gender}
+          </if>
+        <if test="start!=null and end!=null">
+             and   entry_date between #{start} and #{end}
+        </if>
+        </where>
+#         select * from emp where name like concat("") and gender=  and entry_date between  and ;
+    </select>
+    <select id="query01" resultType="com.springboot.springboot01.projo.APP">
+        select emp.id as id,emp.name as name,dept.name as name01 from emp INNER join dept on emp.dept_id=dept.id;
+    </select>
+    <select id="query02" resultType="com.springboot.springboot01.projo.Emp">
+        select * from emp
+        <where>
+        id in
+            <foreach collection="hashMap" item="item" open="(" close=")">
+              #{item}
+          </foreach>
+     </where>
+    </select>
+</mapper>

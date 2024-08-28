@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>员工</title>
+    <script  type="text/javascript" src="Jquery.js"></script>
+</head>
+<body>
+<button id="hxc">员工 全部查询</button>
+<table id="data-table">
+    <thead>
+    <tr>
+        <th>员工id</th>
+        <th>员工名字</th>
+        <th>性别(1.男 2.女)</th>
+        <th>归属的部门id</th>
+        <th>入门日期</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<br><br>
+<h3>根据id删除员工</h3>
+<form id="a2">
+    请输入要删除部门的id<input type="text" name="id"><br>
+    <button id="hwc">删除此员工</button>
+</form> <br>
+
+<h3>增加员工</h3>
+<form id="a3">
+    请输入要增加员工的用户名<input type="text" name="username"><br>
+    请输入要增加员工的密码<input type="text" name="password"><br>
+    请输入要增加员工的名字<input type="text" name="name"><br>
+    请输入要增加员工的性别(1.男 2.女)<input type="text" name="gender"><br>
+    请输入要增加员工的入职日期<input type="date" name="entryDate"><br>
+    请输入要增加员工的归属部门id<input type="text" name="deptId"><br>
+    <button id="hwk">添加员工</button>
+</form>
+<br>
+
+<h3>根据员工的id对 其 数据 进行修改</h3>
+<form id="a4">
+    请输入要修改员工的id(必填)<input type="text" name="id"><br>
+    请输入该员工要修改的用户名(选填)<input type="text" name="username"><br>
+    请输入该员工要修改的密码(选填)<input type="text" name="password"><br>
+    请输入该员工要修改的名字(选填)<input type="text" name="name"><br>
+    请输入该员工要修改的性别(1.男 2.女)(选填)<input type="text" name="gender"><br>
+    请输入该员工要修改的归属部门id(选填)<input type="text" name="deptId"><br>
+    请输入该员工要修改的入职日期(选填)<input type="date" name="entryDate"><br>
+    请输入该员工要修改的入职日期(选填)<input type="date" name="updateTime"><br>
+    <button id="ggg">修改该员工信息</button>
+</form>
+
+<div><a href="HomePage.html">返回</a></div>
+<script >
+    $(function () {
+        //查询所有员工信息
+        $("#hxc").click(function () {
+            $.ajax({
+                url: 'http://localhost:8080/depts',
+                data: '',
+                type: "GET",
+                success: function (data) {
+                    const tableBody = $('#data-table tbody'); // 获取表格的tbody元素
+                    $.each(data.data, function(index, item) { // 遍历响应数据中的每个记录
+                        const row = '<tr>' +
+                            '<td>' + item.id + '</td>' +
+                            '<td>' + item.name + '</td>'+
+                            '<td>' + item.gender + '</td>'+
+                            '<td>' + item.deptId + '</td>'+
+                            '<td>' + item.entryDate + '</td>'+
+                        '</tr>'; // 创建表格行
+                        tableBody.append(row); // 将行添加到表格的tbody元素中
+                    });
+                },
+                dataType: "JSON"
+            })
+        })
+//根据id删除员工
+        $("#hwc").click(function () {
+            let serialize = $("#a2").serialize();
+            const id = $('input[name="id"]').val();
+            alert(id)
+            $.ajax({
+                url: 'http://localhost:8080/emps/'+id,
+                type: "DELETE",
+                success: function (data) {
+                    if (data.msg === 'success') {
+                        alert("删除成功")
+                    } else {
+                        alert(data.msg)
+                    }
+                },
+                dataType: "JSON"
+            })
+        })
+
+        //员工增加
+        $("#hwk").click(function () {
+            let serialize = $("#a3").serialize();
+            $.ajax({
+                url: 'http://localhost:8080/addemp',
+                data: serialize,
+                type: "POST",
+                success: function (data) {
+                    if (data.msg === 'success') {
+                        alert("增加员工成功")
+                    } else {
+                        alert(data.msg)
+                    }
+                },
+                dataType: "JSON"
+            })
+        })
+
+        // 根据员工id 对 员工 进行修改
+
+        $("#ggg").click(function () {
+            let serialize = $("#a4").serialize();
+            $.ajax({
+                url: 'http://localhost:8080/updateempbyid',
+                data: serialize,
+                type: "PUT",
+                success: function (data) {
+                    if (data.msg === 'success') {
+                        alert("修改员工成功")
+                    } else {
+                        alert(data.msg)
+                    }
+                },
+                dataType: "JSON"
+            })
+        })
+
+    })
+</script>
+</body>
+</html>
