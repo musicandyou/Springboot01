@@ -22,7 +22,7 @@ public class hello {
 
     @Autowired
     Text02 text02;
-
+//github come in!!!
     @RequestMapping("/abc")
   public String lll( @RequestBody User user)
     {
