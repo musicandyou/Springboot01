@@ -27,8 +27,10 @@ public class hello {
   public String lll( @RequestBody User user)
     {
         System.out.println(user.getName());
+        System.out.println("abc");
 //        System.out.println(age);
         return user.toString();
+
     }
 
     @RequestMapping("/Datatime")
