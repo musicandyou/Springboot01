@@ -28,6 +28,8 @@ public class hello {
     {
         System.out.println(user.getName());
         System.out.println("abc");
+        System.out.println("abc02");
+
 //        System.out.println(age);
         return user.toString();
 
